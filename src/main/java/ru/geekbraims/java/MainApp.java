@@ -28,7 +28,7 @@ public class MainApp {
         scanner.close(); // Закрыли поток, сканнер
     }
 
-   /* // Задание № 2.
+   /* // Задание № 2
     public static void guessTheWord() { // Создали метод который ничего не принимает ничего не возвращает
         String[] words = {"apple", "orange", "lemon", "banana", "apricot", // Копипастнули массив
                 "avocado", "broccoli", "carrot", "cherry", "garlic", "grape",

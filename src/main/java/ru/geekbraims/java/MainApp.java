@@ -5,15 +5,15 @@ import java.util.Scanner;
 
 public class MainApp {
     // Задание № 1. Выполнено благодаря курсу "Java быстрый старт, там была похожая задача."
-   public static void guessTheNumber() { // Создаем методо, который ничего не возвращает и ничего не принимает
+    public static void guessTheNumber() { // Создаем методо, который ничего не возвращает и ничего не принимает
         Random random = new Random(); // Используем класс Random
         Scanner scanner = new Scanner(System.in); // Используем класс Scanner
         int number; // Сюда присвоим рандомное число
         do { //  ДЕЛАЙ
-            int guess =-1; // Задаем парметр для будущих попыток угадать число
-            int counter=0; //  Переменная наших попыток. Присваиваем 0 попытку
+            int guess = -1; // Задаем парметр для будущих попыток угадать число
+            int counter = 0; //  Переменная наших попыток. Присваиваем 0 попытку
             number = random.nextInt(10); // присваиваем рандомное число от 0 до 9
-             while (counter < 3 && guess != number) { //  Пока не угадаем число и пока попытки не достигнут 3-х выполняем следующее
+            while (counter < 3 && guess != number) { //  Пока не угадаем число и пока попытки не достигнут 3-х выполняем следующее
                 System.out.println("Введите число от 0 до 9"); // Выводим на экран для удобства
                 guess = scanner.nextInt(); // Присваиваем ввод с клавиатуры число
                 if (guess != number) { // Если число введенное с клавиатуры не равно загадонному числу то
@@ -28,39 +28,115 @@ public class MainApp {
         scanner.close(); // Закрыли поток, сканнер
     }
 
-   /* // Задание № 2
-    public static void guessTheWord() { // Создали метод который ничего не принимает ничего не возвращает
-        String[] words = {"apple", "orange", "lemon", "banana", "apricot", // Копипастнули массив
+    /**
+     * * Создать массив из слов String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
+     * При запуске программы компьютер загадывает слово, запрашивает ответ у пользователя,
+     * сравнивает его с загаданным словом и сообщает правильно ли ответил пользователь. Если слово не угадано, компьютер показывает буквы которые стоят на своих местах.
+     * apple – загаданное
+     * apricot - ответ игрока
+     * ap############# (15 символов, чтобы пользователь не мог узнать длину слова)
+     * Для сравнения двух слов посимвольно, можно пользоваться:
+     * String str = "apple";
+     * str.charAt(0); - метод, вернет char, который стоит в слове str на первой позиции
+     * Играем до тех пор, пока игрок не отгадает слово
+     * Используем только маленькие буквы
+     * <p>
+     * <p>
+     * 1. Обьявляем массив слов (словарный запаса) С какой-то длиной
+     * 2. Выбор случайного слова из запаса слов. Проверка на то,чтобы не выйти за границы
+     * 3. Цикл (бесконечный) Пока пользователь не догадается
+     * 3.1  Заправшиваем слово пользователя. Есть слово пользователя
+     * 3.2 Проверим сколько первых букв отг.
+     * 3.2 Завожу переменную для ответа maskedAnswer
+     * 3.3 Цикл слева - направо при это ( не выйти за границы слова меньше длины)
+     * 3.3.1 Сравниваем по буквам.
+     * Если равны буквы добавляю в переменную maskedAnswer
+     * првоерка на длину слова?
+     * Если бувы равны то букву добавляю в  maskedAnswer
+     * Елси не равны выхожу из цилка 3.3
+     * 3.4 Если maskedAnswer == загаданное слово, то пользователь отгадал
+     * ДА - отгадал , выходим, поздравляем
+     * НЕТ - еще цикл длина masked Answer до 15
+     * добавляем '#' к maskAnswer
+     * 4. Игра завершена.
+     */
+
+
+    // Задание № 2
+    //  Идем по комментариям по подсказкам с Урока № 4. В скобочках пункты подсказок.
+    public static void tryToGuessTheWord() { //  Создали метод который ничего не принимает ничего не возвращает
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", // (1) Создали массив слов.
                 "avocado", "broccoli", "carrot", "cherry", "garlic", "grape",
                 "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive",
                 "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
+
         Random random = new Random(); // Используем класс Random
         Scanner scanner = new Scanner(System.in); // Используем класс Scanner
-        String str; // Сюда присвоим рандомную строку из массива
-        int randomIndex = random.nextInt(words.length-1);
-        do {
-            String guess = null; // Задаем пустое значение для будущих попыток угадать строку.
-            int counter = 0; //  Переменная наших попыток. Присваиваем 0 попытку
-            System.out.println("Отгадайте фрукт");
-            str = words[randomIndex]; // Задаем рандомное значение для фруктового массива
-            while(counter<3 && guess.equals(str)){ // Пока счетчик не достигнет 3 и пока не будет сходства строк
-                System.out.println("Введите Вашу догадку");
-                guess = scanner.nextLine(); // Ввод возможного варианта фрукта
-                if(guess.equals(str)){ // Сравниваем строки введеную с загаданной
-                    System.out.println("Ваш ответ" + guess.equals(str)+ "***************"); // ответ сравниваем с заданным рандомным фруктом из массива
-                    counter++; // Счетчик попыток
+        int randomIndex = random.nextInt(words.length - 1); // (2)
+        String word = words[randomIndex]; // (3) Присвоили рандомное слово из массива
+        String mask = " ";
+        for (int i = 0; i < word.length(); i++)
+            mask += i + " ";
+        while (true) {
+            System.out.println(" Угадайте слово. ");
+            String answer = scanner.nextLine(); // Присвоили запрос слвоа из консоли.
+                        for (int i = 0; i < words.length; i++) {
+                for (int j = 0; j < answer.length(); j++) {
+                    if (i == j && word.charAt(i) == answer.charAt(j)) {
+                        mask = mask.replace(i + "", word.charAt(i) + "");
+                    }
                 }
             }
-            System.out.println("Вы" + (guess.equals(str)?"Победили":"Проигали" + str) );
-        }while (scanner.nextInt() == 1); // Только введенное с клавиатуры число 1 запустит повторно цикл do while
-        scanner.close(); // Закрыли поток, сканнер
+            mask = mask.replaceAll("[0-9]", "#");
+            System.out.println("mask = " + mask);
+        if(word.equals(answer)){
+            System.out.println("Победа");
+            break;
+        }
+        }
     }
-    public static void main(String[] args) {
-       // guessTheNumber();
-        guessTheWord();
+
+
+
+
+
+
+       /*
     }
+  ПОДСКАЗКА РАБОТЫ CHARAT
+public class Test {
+
+   public static void main(String args[]) {
+      String s = "Я буду хорошим программистом!";
+      char result1 = s.charAt(8);
+      char result2 = s.charAt(11);
+      System.out.println("Восьмой символ строки - " + result1);
+      System.out.println("Одиннадцатый символ строки - " + result2);
+   }
 }
+Получим следующий результат:
+
+Восьмой символ строки - о
+Одиннадцатый символ строки - ш
+
+
+
+
     */
+
+
+        public static void main (String[]args){
+            tryToGuessTheWord();
+
+        }
+    }
+
+
+
+
+
+
+
 /*
     public static void guessTheWord() {  String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry",
             "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut",
@@ -97,16 +173,11 @@ public class MainApp {
         while (true);
     }
 
+
+
 */
 
 
-
-
-
-    public static void main(String[] args) {
-        guessTheNumber();
-    }
-}
 
 
 

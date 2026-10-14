@@ -1,21 +1,21 @@
 # Guess Games
 
-Две консольные игры на Java:
+Two console games in Java:
 
-- **Угадай слово** (по умолчанию) — компьютер загадывает слово из списка фруктов
-  и овощей; после каждой неверной попытки показывается маска из 15 символов,
-  где открыты буквы, стоящие на своих местах, а остальные заменены на `#`.
-- **Угадай число** (`number`) — число от 0 до 9, три попытки с подсказкой
-  «больше/меньше» и предложением сыграть ещё раз.
+- **Guess the word** (default): the computer picks a word from a list of fruits
+  and vegetables; after each wrong attempt a 15-character mask is shown,
+  in which letters in their correct positions are revealed and the rest are replaced with `#`.
+- **Guess the number** (`number`): a number from 0 to 9, three attempts with a
+  "higher/lower" hint and an offer to play again.
 
-## Запуск
+## Run
 
-Требуется JDK 8+.
+Requires JDK 8+.
 
 ```bash
 mvn package
-java -cp target/classes com.tlenparty.guessgame.MainApp          # угадай слово
-java -cp target/classes com.tlenparty.guessgame.MainApp number   # угадай число
+java -cp target/classes com.tlenparty.guessgame.MainApp          # guess the word
+java -cp target/classes com.tlenparty.guessgame.MainApp number   # guess the number
 ```
 
-Без Maven: `javac -d out src/main/java/com/tlenparty/guessgame/MainApp.java`.
+Without Maven: `javac -d out src/main/java/com/tlenparty/guessgame/MainApp.java`.

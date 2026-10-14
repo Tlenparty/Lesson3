@@ -1,4 +1,4 @@
-package ru.geekbraims.java;
+package com.tlenparty.guessgame;
 
 import java.util.Random;
 import java.util.Scanner;

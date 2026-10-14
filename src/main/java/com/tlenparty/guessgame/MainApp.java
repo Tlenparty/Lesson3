@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MainApp {
-    // Задание № 1. Выполнено благодаря курсу "Java быстрый старт, там была похожая задача."
+    // Игра "Угадай число": 3 попытки, подсказка больше/меньше
     public static void guessTheNumber() { // Создаем методо, который ничего не возвращает и ничего не принимает
         Random random = new Random(); // Используем класс Random
         Scanner scanner = new Scanner(System.in); // Используем класс Scanner
@@ -62,122 +62,45 @@ public class MainApp {
      */
 
 
-    // Задание № 2
-    //  Идем по комментариям по подсказкам с Урока № 4. В скобочках пункты подсказок.
-    public static void tryToGuessTheWord() { //  Создали метод который ничего не принимает ничего не возвращает
-        String[] words = {"apple", "orange", "lemon", "banana", "apricot", // (1) Создали массив слов.
+    public static void tryToGuessTheWord() {
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot",
                 "avocado", "broccoli", "carrot", "cherry", "garlic", "grape",
                 "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive",
                 "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
-
-        Random random = new Random(); // Используем класс Random
-        Scanner scanner = new Scanner(System.in); // Используем класс Scanner
-        int randomIndex = random.nextInt(words.length - 1); // (2)
-        String word = words[randomIndex]; // (3) Присвоили рандомное слово из массива
-        String mask = " ";
-        for (int i = 0; i < word.length(); i++)
-            mask += i + " ";
-        while (true) {
-            System.out.println(" Угадайте слово. ");
-            String answer = scanner.nextLine(); // Присвоили запрос слвоа из консоли.
-                        for (int i = 0; i < words.length; i++) {
-                for (int j = 0; j < answer.length(); j++) {
-                    if (i == j && word.charAt(i) == answer.charAt(j)) {
-                        mask = mask.replace(i + "", word.charAt(i) + "");
-                    }
-                }
-            }
-            mask = mask.replaceAll("[0-9]", "#");
-            System.out.println("mask = " + mask);
-        if(word.equals(answer)){
-            System.out.println("Победа");
-            break;
-        }
-        }
-    }
-
-
-
-
-
-
-       /*
-    }
-  ПОДСКАЗКА РАБОТЫ CHARAT
-public class Test {
-
-   public static void main(String args[]) {
-      String s = "Я буду хорошим программистом!";
-      char result1 = s.charAt(8);
-      char result2 = s.charAt(11);
-      System.out.println("Восьмой символ строки - " + result1);
-      System.out.println("Одиннадцатый символ строки - " + result2);
-   }
-}
-Получим следующий результат:
-
-Восьмой символ строки - о
-Одиннадцатый символ строки - ш
-
-
-
-
-    */
-
-
-        public static void main (String[]args){
-            tryToGuessTheWord();
-
-        }
-    }
-
-
-
-
-
-
-
-/*
-    public static void guessTheWord() {  String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry",
-            "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut",
-            "pear", "pepper", "pineapple", "pumpkin", "potato"};
-        //загадаем слово из массива
         Random random = new Random();
-        int indWord = random.nextInt(words.length - 1);
-        String word = words[indWord];
-        int lenWord = word.length();
-        System.out.println("Я загадал слово, попробуй отгадать его");
-        System.out.println(word);
-        //инициализируем сканер
         Scanner scanner = new Scanner(System.in);
-        do {
-            //спрашиваем ответ
-            System.out.println("Введи свой ответ: (для выхода из игры, просто нажмите Enter)");
-            String answer = scanner.nextLine();
-            //если нам надоес играть то мы выйдем
-            if (answer.equals("")) break;
-            else if (word.equals(answer)) {
-                System.out.println("Вы угадали слово, игра закончена!!!");
+        String word = words[random.nextInt(words.length)];
+        System.out.println("Я загадал слово, попробуйте отгадать его (Enter — выход)");
+
+        while (true) {
+            System.out.println("Ваш ответ: ");
+            String answer = scanner.nextLine().trim().toLowerCase();
+            if (answer.isEmpty()) {
+                System.out.println("Загаданное слово: " + word);
                 break;
             }
-            //так как наш игрок не угадал то будем готовить для него подсказку
-            char[] charsAnswer = answer.toCharArray();
-            for (int i = 0; i < lenWord; i++) {
-                if (i >= charsAnswer.length) break;
-                if (word.charAt(i) != charsAnswer[i]) charsAnswer[i] = '#';
+            if (word.equals(answer)) {
+                System.out.println("Победа! Вы угадали слово");
+                break;
             }
-            StringBuilder comment = new StringBuilder(String.valueOf(charsAnswer));
-            for (int i = comment.length(); i < 15; i++) comment.append("#");
-            System.out.println(comment);
+            // Подсказка: буквы, стоящие на своих местах, остальное — '#', всего 15 символов
+            StringBuilder mask = new StringBuilder();
+            for (int i = 0; i < 15; i++) {
+                if (i < word.length() && i < answer.length() && word.charAt(i) == answer.charAt(i)) {
+                    mask.append(word.charAt(i));
+                } else {
+                    mask.append('#');
+                }
+            }
+            System.out.println(mask);
         }
-        while (true);
     }
 
-
-
-*/
-
-
-
-
-
+    public static void main(String[] args) {
+        if (args.length > 0 && args[0].equals("number")) {
+            guessTheNumber();
+        } else {
+            tryToGuessTheWord();
+        }
+    }
+}
